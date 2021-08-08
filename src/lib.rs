@@ -31,7 +31,7 @@ use std::{f64::consts::PI, ops};
 
 // External crate imports.
 use overload::overload;
-#[cfg(any(feature = "random", doc))]
+#[cfg(feature = "random")]
 use rand::{Rng, SeedableRng};
 
 /// The main vector type with two double-precision components.
@@ -104,7 +104,7 @@ impl Vecctor {
     ///
     /// assert_eq!(random.mag(), 1.0);
     /// ```
-    #[cfg(any(feature = "random", doc))]
+    #[cfg(feature = "random")]
     #[doc(cfg(feature = "random"))]
     pub fn from_rng<R>(mut rng: R) -> Self
     where
@@ -125,7 +125,7 @@ impl Vecctor {
     ///
     /// assert_eq!(random.mag(), 1.0);
     /// ```
-    #[cfg(any(feature = "random", doc))]
+    #[cfg(feature = "random")]
     #[doc(cfg(feature = "random"))]
     pub fn from_seed<R>(seed: R::Seed) -> Self
     where
@@ -147,7 +147,7 @@ impl Vecctor {
     ///
     /// assert_eq!(random.mag(), 1.0);
     /// ```
-    #[cfg(any(feature = "random", doc))]
+    #[cfg(feature = "random")]
     #[doc(cfg(feature = "random"))]
     pub fn from_entropy<R>() -> Self
     where

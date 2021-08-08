@@ -22,4 +22,8 @@ overload = "0.1"
 rand = { version = "0.8", features = ["small_rng"], optional = true }
 
 [features]
+default = []
 random = ["rand"]
+
+[package.metadata.docs.rs]
+all-features = true
