@@ -13,5 +13,5 @@ assert_eq!(five_a.mag(), 25.0);
 
 let b = Vecctor::new(-3.0, 0.0);
 let c = a + b; // (0, 4.0)
-assert_eq!(c.angle(), PI / 2.0);
+assert_eq!(c.angle(), std::f64::consts::PI / 2.0);
 ```
