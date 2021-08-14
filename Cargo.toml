@@ -21,6 +21,9 @@ include = [
 overload = "0.1"
 rand = { version = "0.8", features = ["small_rng"], optional = true }
 
+[dev-dependencies]
+float-cmp = "0.9"
+
 [features]
 default = []
 random = ["rand"]
