@@ -23,9 +23,13 @@ rand = { version = "0.8", features = ["small_rng"], optional = true }
 
 [dev-dependencies]
 float-cmp = "0.9"
+pixels = "*"
+winit = "*"
+winit_input_helper = "*"
 
 [features]
 default = []
+all = ["random"]
 random = ["rand"]
 
 [package.metadata.docs.rs]
