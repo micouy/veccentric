@@ -37,7 +37,11 @@ impl Color {
     }
 }
 
-pub fn run<S, U, D>(mut state: S, mut update: U, mut draw: D) -> Result<(), Error>
+pub fn run<S, U, D>(
+    mut state: S,
+    mut update: U,
+    mut draw: D,
+) -> Result<(), Error>
 where
     S: 'static,
     U: FnMut(&mut S, f64) + 'static,
@@ -47,7 +51,8 @@ where
     let mut input = WinitInputHelper::new();
 
     let window = {
-        let size = LogicalSize::new(WIDTH as f64 * SCALE, HEIGHT as f64 * SCALE);
+        let size =
+            LogicalSize::new(WIDTH as f64 * SCALE, HEIGHT as f64 * SCALE);
 
         WindowBuilder::new()
             .with_title(get_exec_name())
@@ -59,7 +64,8 @@ where
 
     let mut pixels = {
         let window_size = window.inner_size();
-        let surface_texture = SurfaceTexture::new(window_size.width, window_size.height, &window);
+        let surface_texture =
+            SurfaceTexture::new(window_size.width, window_size.height, &window);
 
         Pixels::new(WIDTH, HEIGHT, surface_texture)?
     };
