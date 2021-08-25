@@ -215,13 +215,17 @@ impl<T> Into<(T, T)> for Vecc<T> {
     }
 }
 
-/// Advanced Rust-magic. This trait is needed to implement `From<Vecc<U>> for Vecc<T>`, otherwise it conflicts with core's implementation
-/// of `From<T> for T` (when `U == T`). Big thanks to [u/fisgoda](https://www.reddit.com/user/figsoda/) ([link to Reddit post](https://www.reddit.com/r/rust/comments/paw1lm/implementation_of_from_for_generic_struct/)).
+/// Advanced Rust-magic. This trait is needed to implement `From<Vecc<U>> for
+/// Vecc<T>`, otherwise it conflicts with core's implementation of `From<T> for T` (when `U == T`). Big thanks to [u/fisgoda](https://www.reddit.com/user/figsoda/) ([link to Reddit post](https://www.reddit.com/r/rust/comments/paw1lm/implementation_of_from_for_generic_struct/)).
 pub auto trait Different {}
 
 impl<T> !Different for (T, T) {}
 
-impl<T, U> From<Vecc<U>> for Vecc<T> where T: From<U>, (T, U): Different {
+impl<T, U> From<Vecc<U>> for Vecc<T>
+where
+    T: From<U>,
+    (T, U): Different,
+{
     fn from(other: Vecc<U>) -> Vecc<T> {
         Vecc {
             x: From::from(other.x),

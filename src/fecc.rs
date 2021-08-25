@@ -1,4 +1,5 @@
-//! Implementation of [`Fecc`](crate::fecc::Fecc) - the alias for `Vecc<f64>`.
+//! Implementation of [`Fecc`](crate::fecc::Fecc) - the alias for
+//! [`Vecc<f64>`](crate::vecc::Vecc).
 
 #[cfg(feature = "random")]
 use rand::{Rng, SeedableRng};
