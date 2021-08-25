@@ -1,3 +1,5 @@
+//! Implementation of [`Fecc`](crate::fecc::Fecc) - the alias for `Vecc<f64>`.
+
 #[cfg(feature = "random")]
 use rand::{Rng, SeedableRng};
 
@@ -9,7 +11,22 @@ use crate::{Angle, Vecc};
 /// (although some of them are named differently). Since
 /// [`Fecc`](crate::fecc::Fecc) is [`Copy`](std::marker::Copy) none of the
 /// methods mutates the vector, they may only return a new one.
-
+///
+/// # Examples
+///
+/// ```
+/// # use float_cmp::assert_approx_eq;
+/// # use std::f64::consts::PI;
+/// use veccentric::Fecc;
+///
+/// let a: Fecc = (3.0, 4.0).into();
+/// let b = a * 5.0; // (15.0, 20.0)
+/// let c = b.limit(20.0); // (12.0, 16.0)
+/// let d = c.rotate(PI); // (-12.0, -16.0)
+/// let e = d.turn(0.0); // (20.0, 0.0)
+///
+/// assert_approx_eq!(f64, e.mag(), 20.0);
+/// ```
 pub type Fecc = Vecc<f64>;
 
 impl Fecc {
@@ -219,14 +236,16 @@ impl Fecc {
     /// assert_approx_eq!(f64, turned_a.angle(), 0.0);
     /// ```
     ///
-    /// You can use this API to make sure the angles are correct.
+    /// The [`Angular`](crate::angle::Angular) trait allows the user specify the
+    /// units of the angle but it is not required (radians are the default
+    /// unit).
     ///
     /// ```
     /// use veccentric::{Angular, Fecc};
     ///
     /// let a = Fecc::new(1.0, 0.0);
     ///
-    /// // These all mean the same thing.
+    /// // These all mean the same thing (except for precision).
     /// let turned_a = a.turn(3.14);
     /// let turned_a = a.turn(3.14.rad());
     /// let turned_a = a.turn(180.0.deg());
@@ -237,27 +256,6 @@ impl Fecc {
         A: Angle,
     {
         Self::from_angle(angle.to_rad()) * self.mag()
-    }
-
-    /// Reflect the vector about a normal.
-    ///
-    /// # Examples
-    ///
-    /// ```
-    /// # use float_cmp::assert_approx_eq;
-    /// use veccentric::Fecc;
-    ///
-    /// // `a` is pointing right.
-    /// let a = Fecc::new(5.0, 0.0);
-    /// // `normal` is poiting upwards.
-    /// let normal = Fecc::new(0.0, 1.0);
-    /// let reflected_a = a.reflect(normal);
-    ///
-    /// assert_approx_eq!(f64, reflected_a.x, -a.x);
-    /// assert_approx_eq!(f64, reflected_a.y, a.y);
-    /// ```
-    pub fn reflect(&self, normal: Fecc) -> Self {
-        -self - normal * 2.0 * self.dot(normal) / normal.dot(normal)
     }
 
     /// Rotate the vector, leaving its magnitude unchanged.
@@ -276,15 +274,17 @@ impl Fecc {
     /// assert_approx_eq!(f64, rotated_a.angle(), 0.0);
     /// ```
     ///
-    /// You can use this API to express angles in either degrees or radians
-    /// (radians are the default). Read more [here](crate::Angular).
+    ///
+    /// The [`Angular`](crate::angle::Angular) trait allows the user specify the
+    /// units of the angle but it is not required (radians are the default
+    /// unit).
     ///
     /// ```
     /// use veccentric::{Angular, Fecc};
     ///
     /// let a = Fecc::new(1.0, 0.0);
     ///
-    /// // These all mean the same thing (except for the precision).
+    /// // These all mean the same thing (except for precision).
     /// let rotated_a = a.rotate(std::f64::consts::FRAC_PI_2);
     /// let rotated_a = a.rotate(3.14);
     /// let rotated_a = a.rotate(3.14.rad());
@@ -300,6 +300,33 @@ impl Fecc {
         Self {
             x: self.x * angle.cos() - self.y * angle.sin(),
             y: self.x * angle.sin() + self.y * angle.cos(),
+        }
+    }
+
+    /// Reflect the vector about a normal. Reflection about a zero vector
+    /// results in the original vector.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use float_cmp::assert_approx_eq;
+    /// use veccentric::Fecc;
+    ///
+    /// // `a` is pointing right.
+    /// let a = Fecc::new(5.0, 0.0);
+    /// // `normal` is poiting upwards.
+    /// let normal = Fecc::new(0.0, 1.0);
+    /// // `reflected_a` is pointing left.
+    /// let reflected_a = a.reflect(normal);
+    ///
+    /// assert_approx_eq!(f64, reflected_a.x, -a.x);
+    /// assert_approx_eq!(f64, reflected_a.y, a.y);
+    /// ```
+    pub fn reflect(&self, normal: Fecc) -> Self {
+        if normal.is_zero() {
+            *self
+        } else {
+            -(self + normal * 2.0 * self.dot(normal) / normal.dot(normal))
         }
     }
 

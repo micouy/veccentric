@@ -2,10 +2,11 @@
 #![feature(doc_cfg, auto_traits, negative_impls)]
 
 //! 2D vector library inspired by [p5.js](https://p5js.org/)'s
-//! [`p5.Vector`](https://p5js.org/reference/#/p5.Vector). Meant to be used in small gamedev projects.
+//! [`p5.Vector`](https://p5js.org/reference/#/p5.Vector), meant to be used in small gamedev projects.
 //!
 //! The main type, [`Vecc`](crate::vecc::Vecc), is a generic struct implementing
-//! many useful traits. [`Fecc`](crate::fecc::Fecc) is a type alias for `Vecc<f64>`. It's API is heavily inspired by [`p5.Vector`](https://p5js.org/reference/#/p5.Vector)'s,
+//! many useful traits. [`Fecc`](crate::fecc::Fecc) is a type alias for
+//! `Vecc<f64>`. It's API is heavily inspired by [`p5.Vector`](https://p5js.org/reference/#/p5.Vector)'s,
 //! although some of the methods are named differently.
 //!
 //! # Features
@@ -20,11 +21,10 @@
 //!
 //! # Notes
 //!
-//! [`float_cmp::assert_approx_eq`](https://docs.rs/float-cmp/0.9.0/float_cmp/macro.assert_approx_eq.html) is used in some examples.
+//! [`float_cmp::assert_approx_eq`](https://docs.rs/float-cmp/0.9.0/float_cmp/macro.assert_approx_eq.html)
+//! is used in some examples.
 //!
 //! # Examples
-//!
-//! For more examples, go to the [project's repo](https://github.com/micouy/veccentric/tree/master/examples).
 //!
 //! ```
 //! # use float_cmp::assert_approx_eq;
@@ -41,14 +41,12 @@
 //! let c = a + b; // (0.0, 4.0)
 //! assert_approx_eq!(f64, c.angle(), PI / 2.0);
 //! ```
+//!
+//! For more examples, go to [`Vecc`'s docs](crate::vecc::Vecc) or to
+//! [the repository](https://github.com/micouy/veccentric/tree/master/examples).
 
-/// Angles and convertion between units.
 pub mod angle;
-
-/// Generic vector with two components.
 pub mod vecc;
-
-/// Vector with two `f64` components.
 pub mod fecc;
 
 pub use angle::{Angle, Angular, Deg, Rad};

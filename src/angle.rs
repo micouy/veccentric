@@ -1,9 +1,11 @@
-use std::f64::consts::PI;
+//! Angles and convertion between units.
+//!
+//! Using [`Rad`](crate::angle::Rad) and [`Deg`](crate::angle::Deg) prevents the
+//! user from accidentally calling [`.deg()`](crate::angle::Angular::deg)
+//! twice on an angle. [`f64`](f64) may still be used as angle measured in
+//! radians.
 
-// Using [`Rad`](crate::angle::Rad) and [`Deg`](crate::angle::Deg) prevents the
-// user from accidentally calling [`.deg()`](crate::angle::Angular::deg)
-// twice on an angle. [`f64`](f64) may still be used as angle measured in
-// radians.
+use std::f64::consts::PI;
 
 /// Wrapper type storing angle expressed in radians.
 ///
