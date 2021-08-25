@@ -6,7 +6,7 @@
 //!
 //! The main type, [`Vecc`](crate::vecc::Vecc), is a generic struct implementing
 //! many useful traits. [`Fecc`](crate::fecc::Fecc) is a type alias for
-//! `Vecc<f64>`. It's API is heavily inspired by [`p5.Vector`](https://p5js.org/reference/#/p5.Vector)'s,
+//! `Vecc<f64>`. Its API is heavily inspired by [`p5.Vector`](https://p5js.org/reference/#/p5.Vector)'s,
 //! although some of the methods are named differently.
 //!
 //! # Features
@@ -46,8 +46,8 @@
 //! [the repository](https://github.com/micouy/veccentric/tree/master/examples).
 
 pub mod angle;
-pub mod vecc;
 pub mod fecc;
+pub mod vecc;
 
 pub use angle::{Angle, Angular, Deg, Rad};
 pub use fecc::Fecc;

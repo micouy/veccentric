@@ -208,6 +208,15 @@ impl<T> From<(T, T)> for Vecc<T> {
     }
 }
 
+// FIXME: `From` doesn't work for some reason.
+
+#[allow(clippy::from_over_into)]
+impl<T> Into<(T, T)> for Vecc<T> {
+    fn into(self) -> (T, T) {
+        (self.x, self.y)
+    }
+}
+
 // FIXME: Doesn't work for some reason.
 
 /*
