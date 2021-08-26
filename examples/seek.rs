@@ -1,11 +1,13 @@
 use veccentric::Fecc;
 
+use std::time::Instant;
+
 mod engine;
 
 use engine::{Buffer, Color};
 
-const MAX_FORCE: f64 = 10.0;
-const MAX_VELOCITY: f64 = 10.0;
+const MAX_FORCE: f64 = 100.0;
+const MAX_VELOCITY: f64 = 20.0;
 const MASS: f64 = 1.0;
 
 struct Vehicle {
@@ -32,6 +34,7 @@ impl Vehicle {
 struct State {
     a: Vehicle,
     b: Vehicle,
+	start: Instant,
 }
 
 fn main() -> Result<(), pixels::Error> {
@@ -39,19 +42,18 @@ fn main() -> Result<(), pixels::Error> {
     let state = State {
         a: Vehicle::new(50.0, 50.0),
         b: Vehicle::new(10.0, 10.0),
+		start: Instant::now(),
     };
+	let background = Color::black();
 
     // Draw state.
-    let draw = |State { ref a, ref b }: &State, buffer: &mut Buffer| {
-        let (x, y) = a.position.floor().into();
-        buffer.put_pixel(x, y, Color::red());
-
-        let (x, y) = b.position.floor().into();
-        buffer.put_pixel(x, y, Color::blue());
+    let draw = |State { ref a, ref b, .. }: &State, buffer: &mut Buffer| {
+        buffer.draw_point(a.position, Color::white());
+        buffer.draw_point(b.position, Color::white());
     };
 
     // Update state.
-    let update = move |State { ref mut a, ref mut b }: &mut State, dt: f64| {
+    let update = move |State { ref mut a, ref mut b, ref mut start }: &mut State, dt: f64| {
         // Seek.
         let desired_velocity =
             (b.position - a.position).normalize() * MAX_VELOCITY;
@@ -59,10 +61,13 @@ fn main() -> Result<(), pixels::Error> {
         a.step(force, dt);
 
         // Reset a when it reaches b.
-        if a.position.dist(b.position) < 2.0 {
+        if start.elapsed().as_secs_f64() >= 8.0 {
+			a.position = (50.0, 50.0).into();
+			a.velocity = Fecc::zero();
+			*start = Instant::now();
         }
     };
 
     // Run the main loop.
-    engine::run(state, update, draw)
+    engine::run(state, update, draw, background)
 }
