@@ -16,12 +16,12 @@ struct Vehicle {
 }
 
 impl Vehicle {
-	fn new(x: f64, y: f64) -> Self {
-		Self {
-			position: (x, y).into(),
-			velocity: Fecc::zero(),
-		}
-	}
+    fn new(x: f64, y: f64) -> Self {
+        Self {
+            position: (x, y).into(),
+            velocity: Fecc::zero(),
+        }
+    }
 
     fn step(&mut self, force: Fecc, dt: f64) {
         let force = force.limit(MAX_FORCE);
@@ -34,7 +34,7 @@ impl Vehicle {
 struct State {
     a: Vehicle,
     b: Vehicle,
-	start: Instant,
+    start: Instant,
 }
 
 fn main() -> Result<(), pixels::Error> {
@@ -42,9 +42,9 @@ fn main() -> Result<(), pixels::Error> {
     let state = State {
         a: Vehicle::new(50.0, 50.0),
         b: Vehicle::new(10.0, 10.0),
-		start: Instant::now(),
+        start: Instant::now(),
     };
-	let background = Color::black();
+    let background = Color::black();
 
     // Draw state.
     let draw = |State { ref a, ref b, .. }: &State, buffer: &mut Buffer| {
@@ -53,7 +53,12 @@ fn main() -> Result<(), pixels::Error> {
     };
 
     // Update state.
-    let update = move |State { ref mut a, ref mut b, ref mut start }: &mut State, dt: f64| {
+    let update = move |State {
+                           ref mut a,
+                           ref mut b,
+                           ref mut start,
+                       }: &mut State,
+                       dt: f64| {
         // Seek.
         let desired_velocity =
             (b.position - a.position).normalize() * MAX_VELOCITY;
@@ -62,9 +67,9 @@ fn main() -> Result<(), pixels::Error> {
 
         // Reset a when it reaches b.
         if start.elapsed().as_secs_f64() >= 8.0 {
-			a.position = (50.0, 50.0).into();
-			a.velocity = Fecc::zero();
-			*start = Instant::now();
+            a.position = (50.0, 50.0).into();
+            a.velocity = Fecc::zero();
+            *start = Instant::now();
         }
     };
 

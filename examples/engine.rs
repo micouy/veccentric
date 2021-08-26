@@ -43,7 +43,7 @@ pub fn run<S, U, D>(
     mut state: S,
     mut update: U,
     mut draw: D,
-	background: Color,
+    background: Color,
 ) -> Result<(), Error>
 where
     S: 'static,
@@ -116,7 +116,7 @@ impl<'a> Buffer<'a> {
 
     #[allow(clippy::many_single_char_names)]
     pub fn draw_point(&mut self, position: Fecc, Color(r, g, b): Color) {
-		let (x, y) = position.floor().into();
+        let (x, y) = position.floor().into();
 
         if let Some(ix) = Self::ix(x, y) {
             self.pixels[ix..(ix + 4)].copy_from_slice(&[r, g, b, 0xff]);
