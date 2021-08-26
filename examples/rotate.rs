@@ -19,11 +19,11 @@ fn main() -> Result<(), pixels::Error> {
 		point: original,
 		start: Instant::now(),
 	};
+	let background = Color::black();
 
     // Draw state.
     let draw = move |State { ref point, .. }: &State, buffer: &mut Buffer| {
-        let (x, y) = (point + center).floor().into();
-        buffer.put_pixel(x, y, Color::red());
+        buffer.draw_point(point + center, Color::red());
     };
 
     // Update state.
@@ -32,5 +32,5 @@ fn main() -> Result<(), pixels::Error> {
     };
 
     // Run the main loop.
-    engine::run(state, update, draw)
+    engine::run(state, update, draw, background)
 }
