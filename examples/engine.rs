@@ -1,4 +1,6 @@
 #![allow(dead_code)]
+use veccentric::Fecc;
+
 use std::time::Instant;
 
 use pixels::{Error, Pixels, SurfaceTexture};
@@ -41,6 +43,7 @@ pub fn run<S, U, D>(
     mut state: S,
     mut update: U,
     mut draw: D,
+	background: Color,
 ) -> Result<(), Error>
 where
     S: 'static,
@@ -75,7 +78,7 @@ where
         if let Event::RedrawRequested(_) = event {
             let mut buffer = Buffer::new(pixels.get_frame());
             update(&mut state, dt.elapsed().as_secs_f64());
-            buffer.clear(Color(0x33, 0xff, 0x00));
+            buffer.clear(background);
             draw(&state, &mut buffer);
             dt = Instant::now();
 
@@ -112,7 +115,9 @@ impl<'a> Buffer<'a> {
     }
 
     #[allow(clippy::many_single_char_names)]
-    pub fn put_pixel(&mut self, x: i64, y: i64, Color(r, g, b): Color) {
+    pub fn draw_point(&mut self, position: Fecc, Color(r, g, b): Color) {
+		let (x, y) = position.floor().into();
+
         if let Some(ix) = Self::ix(x, y) {
             self.pixels[ix..(ix + 4)].copy_from_slice(&[r, g, b, 0xff]);
         }
