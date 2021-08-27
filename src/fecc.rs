@@ -327,7 +327,30 @@ impl Fecc {
         if normal.is_zero() {
             *self
         } else {
-            -(self + normal * 2.0 * self.dot(normal) / normal.dot(normal))
+            -(self + self.project(normal) * 2.0)
+        }
+    }
+
+    /// Project a vector onto another. Projection onto a zero vector results in
+    /// the original vector.
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use float_cmp::assert_approx_eq;
+    /// use veccentric::Fecc;
+    ///
+    /// let a = Fecc::new(1.0, 3.0);
+    /// let b = Fecc::new(4.0, 1.0);
+    /// let projected_a = a.project(b);
+    ///
+    /// assert_approx_eq!(f64, b.angle(), projected_a.angle());
+    /// ```
+    pub fn project(&self, other: Self) -> Self {
+        if other.is_zero() {
+            *self
+        } else {
+            other * self.dot(other) / other.dot(other)
         }
     }
 
