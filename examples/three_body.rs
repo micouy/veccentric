@@ -6,7 +6,7 @@ use engine::{Buffer, Color};
 
 // Play with the params.
 const MAX_FORCE: f64 = 100.0;
-const MAX_VELOCITY: f64 = 1000_000.0;
+const MAX_VELOCITY: f64 = 1_000_000.0;
 const G: f64 = 100.0;
 
 struct Vehicle {

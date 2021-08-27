@@ -31,7 +31,7 @@ fn main() -> Result<(), pixels::Error> {
                            ref mut point,
                            ref mut start,
                        }: &mut State,
-                       dt: f64| {
+                       _dt: f64| {
         *point = original.rotate(start.elapsed().as_secs_f64());
     };
 

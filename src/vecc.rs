@@ -11,8 +11,8 @@ use std::{cmp::Ord, ops::*};
 /// since it is not possible to implement a foreign trait on `T`.)
 ///
 /// This crate exports a specific version of [`Vecc`](crate::vecc::Vecc) with
-/// [`f64`](f64) components - [`Fecc`](crate::fecc::Fecc). It implements additional
-/// methods and is heavily inspired by [`p5.Vector`](https://p5js.org/reference/#/p5.Vector).
+/// [`f64`](f64) components - [`Fecc`](crate::fecc::Fecc). It implements
+/// additional methods and is heavily inspired by [`p5.Vector`](https://p5js.org/reference/#/p5.Vector).
 ///
 /// # Examples
 ///

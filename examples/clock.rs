@@ -48,7 +48,7 @@ fn main() -> Result<(), pixels::Error> {
     };
 
     // Update state.
-    let update = move |state: &mut State, dt: f64| {
+    let update = move |state: &mut State, _dt: f64| {
         state.seconds = original_s.rotate(angle(&state.start, 0.0));
         state.minutes = original_m.rotate(angle(&state.start, 1.0));
         state.hours = original_h.rotate(angle(&state.start, 2.0));

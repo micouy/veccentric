@@ -4,8 +4,8 @@ mod engine;
 
 use engine::{Buffer, Color};
 
-const MAX_FORCE: f64 = 1000_000.0;
-const MAX_VELOCITY: f64 = 1000_000.0;
+const MAX_FORCE: f64 = 1_000_000.0;
+const MAX_VELOCITY: f64 = 1_000_000.0;
 const SUN_MASS: f64 = 10_000.0;
 const EARTH_MASS: f64 = 0.1;
 const G: f64 = 1.0;

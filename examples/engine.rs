@@ -143,5 +143,5 @@ fn get_exec_name() -> String {
         .ok()
         .and_then(|pb| pb.file_name().map(|s| s.to_os_string()))
         .and_then(|s| s.into_string().ok())
-        .unwrap_or("veccentric".to_string())
+        .unwrap_or_else(|| "veccentric".to_string())
 }
