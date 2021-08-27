@@ -40,16 +40,15 @@ fn main() -> Result<(), pixels::Error> {
         buffer.draw_point(hours + center, Color::black());
     };
 
+    let angle = |start: &Instant, power| {
+        (start.elapsed().as_secs_f64() / 60.0_f64.powf(power)).floor() * 2.0 * PI / 60.0
+    };
+
     // Update state.
     let update = move |state: &mut State, dt: f64| {
-        state.seconds = original_s
-            .rotate(state.start.elapsed().as_secs_f64() * 2.0 * PI / 60.0);
-        state.minutes = original_m.rotate(
-            state.start.elapsed().as_secs_f64() * 2.0 * PI / 60.0_f64.powf(2.0),
-        );
-        state.hours = original_h.rotate(
-            state.start.elapsed().as_secs_f64() * 2.0 * PI / 60.0_f64.powf(3.0),
-        );
+        state.seconds = original_s.rotate(angle(&state.start, 0.0));
+        state.minutes = original_m.rotate(angle(&state.start, 1.0));
+        state.hours = original_h.rotate(angle(&state.start, 2.0));
     };
 
     // Run the main loop.
