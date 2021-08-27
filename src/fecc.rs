@@ -31,7 +31,7 @@ use crate::{Angle, Vecc};
 pub type Fecc = Vecc<f64>;
 
 impl Fecc {
-    /// Construct a new vector of zero magnitude.
+    /// Constructs a new vector of zero magnitude.
     ///
     /// # Examples
     ///
@@ -47,7 +47,7 @@ impl Fecc {
         Self { x: 0.0, y: 0.0 }
     }
 
-    /// Construct a new unit vector pointing in the specified direction.
+    /// Constructs a new unit vector pointing in the specified direction.
     ///
     /// # Examples
     ///
@@ -73,7 +73,7 @@ impl Fecc {
         }
     }
 
-    /// Construct a new unit vector pointing in random direction.
+    /// Constructs a new unit vector pointing in random direction.
     ///
     /// # Examples
     ///
@@ -101,7 +101,7 @@ impl Fecc {
         }
     }
 
-    /// Construct a new unit vector pointing in random direction.
+    /// Constructs a new unit vector pointing in random direction.
     ///
     /// # Examples
     ///
@@ -129,7 +129,7 @@ impl Fecc {
         }
     }
 
-    /// Construct a new unit vector pointing in random direction.
+    /// Constructs a new unit vector pointing in random direction.
     ///
     /// # Examples
     ///
@@ -157,7 +157,7 @@ impl Fecc {
         }
     }
 
-    /// Normalize the vector (construct a new **unit** vector pointing in the
+    /// Normalizes the vector (construct a new **unit** vector pointing in the
     /// same direction as the original one).
     ///
     /// # Examples
@@ -179,7 +179,7 @@ impl Fecc {
         }
     }
 
-    /// Limit the magnitude of the vector.
+    /// Limits the magnitude of the vector.
     ///
     /// # Examples
     ///
@@ -205,7 +205,7 @@ impl Fecc {
         }
     }
 
-    /// Set the magnitude of the vector, leaving its angle unchanged.
+    /// Sets the magnitude of the vector, leaving its angle unchanged.
     ///
     /// # Examples
     ///
@@ -222,7 +222,7 @@ impl Fecc {
         *self * mag / self.mag()
     }
 
-    /// Set the angle of the vector, leaving its magnitude unchanged.
+    /// Sets the angle of the vector, leaving its magnitude unchanged.
     ///
     /// # Examples
     ///
@@ -259,7 +259,7 @@ impl Fecc {
         Self::from_angle(angle.to_rad()) * self.mag()
     }
 
-    /// Rotate the vector, leaving its magnitude unchanged.
+    /// Rotates the vector, leaving its magnitude unchanged.
     ///
     /// # Examples
     ///
@@ -304,7 +304,7 @@ impl Fecc {
         }
     }
 
-    /// Reflect the vector about a normal. Reflection about a zero vector
+    /// Reflects the vector about a normal. Reflection about a zero vector
     /// results in the original vector.
     ///
     /// # Examples
@@ -331,7 +331,7 @@ impl Fecc {
         }
     }
 
-    /// Project a vector onto another. Projection onto a zero vector results in
+    /// Projects a vector onto another. Projection onto a zero vector results in
     /// the original vector.
     ///
     /// # Examples
@@ -354,7 +354,7 @@ impl Fecc {
         }
     }
 
-    /// Measure the distance between two points (the tips of the vectors
+    /// Returns the distance between two points (the tips of the vectors
     /// pointing from the origin).
     ///
     /// # Examples
@@ -372,7 +372,7 @@ impl Fecc {
         (*self - other).mag()
     }
 
-    /// Measure the square of the distance between two points (the tips of the
+    /// Returns the square of the distance between two points (the tips of the
     /// vectors pointing from the origin).
     ///
     /// # Examples
@@ -390,7 +390,7 @@ impl Fecc {
         (*self - other).mag_squared()
     }
 
-    /// Check whether the vector has zero magnitude.
+    /// Checks whether the vector has zero magnitude.
     ///
     /// # Examples
     ///
@@ -407,7 +407,7 @@ impl Fecc {
         (self.x == 0.0) && (self.y == 0.0)
     }
 
-    /// Measure the angle between two vectors.
+    /// Returns the angle between two vectors.
     ///
     /// # Examples
     ///
@@ -425,7 +425,7 @@ impl Fecc {
         other.angle() - self.angle()
     }
 
-    /// Measure the angle between the positive X axis and the vector.
+    /// Returns the angle between the positive X axis and the vector.
     ///
     /// # Examples
     ///
@@ -442,7 +442,7 @@ impl Fecc {
         self.y.atan2(self.x)
     }
 
-    /// Measure the magnitude of the vector.
+    /// Returns the magnitude of the vector.
     ///
     /// # Examples
     ///
@@ -458,7 +458,7 @@ impl Fecc {
         self.mag_squared().sqrt()
     }
 
-    /// Measure the square of the magnitude of the vector.
+    /// Returns the square of the magnitude of the vector.
     ///
     /// # Examples
     ///
@@ -474,7 +474,7 @@ impl Fecc {
         self.x.powf(2.0) + self.y.powf(2.0)
     }
 
-    /// Perform element-wise [`round`](f64::round) and convert the
+    /// Performs component-wise [`round`](f64::round) and convert the
     /// components to `i64`.
     ///
     /// # Examples
@@ -497,7 +497,7 @@ impl Fecc {
         }
     }
 
-    /// Perform element-wise [`floor`](f64::floor) and convert the
+    /// Performs component-wise [`floor`](f64::floor) and convert the
     /// components to `i64`.
     ///
     /// # Examples
@@ -520,7 +520,7 @@ impl Fecc {
         }
     }
 
-    /// Perform element-wise [`ceil`](f64::ceil) and convert the
+    /// Performs component-wise [`ceil`](f64::ceil) and convert the
     /// components to `i64`.
     ///
     /// # Examples

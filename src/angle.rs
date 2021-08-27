@@ -30,7 +30,7 @@ pub struct Deg(pub f64);
 /// A trait allowing to use generic angle type in some of
 /// [`Fecc`](crate::fecc::Fecc)'s methods. See [`Angular`](crate::Angular).
 pub trait Angle {
-    /// Convert the angle type to radians.
+    /// Converts the angle type to radians.
     fn to_rad(&self) -> f64;
 }
 
@@ -77,10 +77,10 @@ impl Angle for f64 {
 /// let pi = pi.deg();
 /// ```
 pub trait Angular {
-    /// Express the angle in radians.
+    /// Expresses the angle in radians.
     fn rad(&self) -> Rad;
 
-    /// Express the angle in degrees.
+    /// Expresses the angle in degrees.
     fn deg(&self) -> Deg;
 }
 

@@ -61,7 +61,7 @@ pub struct Vecc<T> {
 }
 
 impl<T> Vecc<T> {
-    /// Construct a new vector.
+    /// Constructs a new vector.
     ///
     /// # Examples
     ///
@@ -82,7 +82,7 @@ impl<T> Vecc<T> {
         Self { x, y }
     }
 
-    /// Take a dot product of the vector with another.
+    /// Takes a dot product of the vector with another.
     ///
     /// # Examples
     ///
@@ -101,7 +101,7 @@ impl<T> Vecc<T> {
         self.x * rhs.x + self.y * rhs.y
     }
 
-    /// Take the cross-product (a scalar) of the vector with another.
+    /// Takes the cross-product (a scalar) of the vector with another.
     ///
     /// # Examples
     ///
@@ -120,7 +120,7 @@ impl<T> Vecc<T> {
         self.x * rhs.y - self.y * rhs.x
     }
 
-    /// Perform element-wise [`min`](std::cmp::Ord::min).
+    /// Performs element-wise [`min`](std::cmp::Ord::min).
     ///
     /// # Examples
     ///
@@ -144,7 +144,7 @@ impl<T> Vecc<T> {
         }
     }
 
-    /// Perform element-wise [`max`](std::cmp::Ord::max).
+    /// Performs element-wise [`max`](std::cmp::Ord::max).
     ///
     /// # Examples
     ///
@@ -168,7 +168,7 @@ impl<T> Vecc<T> {
         }
     }
 
-    /// Perform element-wise [`clamp`](std::cmp::Ord::clamp).
+    /// Performs element-wise [`clamp`](std::cmp::Ord::clamp).
     ///
     /// # Examples
     ///
@@ -195,7 +195,7 @@ impl<T> Vecc<T> {
 }
 
 impl<T> From<(T, T)> for Vecc<T> {
-    /// Construct a new vector from a tuple.
+    /// Constructs a new vector from a tuple.
     ///
     /// # Examples
     ///
