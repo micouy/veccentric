@@ -25,9 +25,9 @@ rand = { version = "0.8", features = ["small_rng"], optional = true }
 
 [dev-dependencies]
 float-cmp = "0.9"
-pixels = "*"
-winit = "*"
-winit_input_helper = "*"
+pixels = "0.5"
+winit = "0.25"
+winit_input_helper = "0.10"
 
 [features]
 default = []
