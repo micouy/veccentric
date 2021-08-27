@@ -1,13 +1,12 @@
 #![warn(missing_docs)]
 #![feature(doc_cfg, auto_traits, negative_impls)]
 
-//! 2D vector library inspired by [p5.js](https://p5js.org/)'s
-//! [`p5.Vector`](https://p5js.org/reference/#/p5.Vector), meant to be used in small gamedev projects.
+//! Tiny 2D vector library. Inspired by [p5.js](https://p5js.org/)'s
+//! [`p5.Vector`](https://p5js.org/reference/#/p5.Vector).
 //!
-//! The main type, [`Vecc`](crate::vecc::Vecc), is a generic struct implementing
-//! many useful traits. [`Fecc`](crate::fecc::Fecc) is a type alias for
-//! `Vecc<f64>`. Its API is heavily inspired by [`p5.Vector`](https://p5js.org/reference/#/p5.Vector)'s,
-//! although some of the methods are named differently.
+//! The main type, [`Vecc<T>`](crate::vecc::Vecc), is a generic struct implementing
+//! many useful traits and operator overloading. [`Fecc`](crate::fecc::Fecc) is a type alias for
+//! [`Vecc<f64>`](crate::vecc::Vecc). It has an extended API, heavily inspired by [`p5.Vector`](https://p5js.org/reference/#/p5.Vector).
 //!
 //! # Features
 //!
