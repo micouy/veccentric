@@ -12,7 +12,14 @@ many useful traits and operator overloading. `Fecc` is a type alias for
 `Vecc<f64>`. It has an extended API, heavily inspired by [`p5.Vector`](https://p5js.org/reference/#/p5.Vector).
 
 
-# Examples
+# Usage
+
+Add `veccentric` to your `Cargo.toml`.
+
+```toml
+[dependencies]
+veccentric = "0.2"
+```
 
 Basic arithmetic on `Vecc<T>`.
 
