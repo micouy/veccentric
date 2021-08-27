@@ -13,8 +13,10 @@ edition = "2018"
 include = [
     "Cargo.toml",
     "**/*.rs",
+    "**/*.md",
+    "!scratchpad.md",
+    "assets/",
     ".gitignore",
-    "README.md",
 ]
 
 [dependencies]
