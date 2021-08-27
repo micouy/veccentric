@@ -41,7 +41,10 @@ fn main() -> Result<(), pixels::Error> {
     };
 
     let angle = |start: &Instant, power| {
-        (start.elapsed().as_secs_f64() / 60.0_f64.powf(power)).floor() * 2.0 * PI / 60.0
+        (start.elapsed().as_secs_f64() / 60.0_f64.powf(power)).floor()
+            * 2.0
+            * PI
+            / 60.0
     };
 
     // Update state.
