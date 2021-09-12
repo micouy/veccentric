@@ -4,9 +4,9 @@
 //! Tiny 2D vector library. Inspired by [p5.js](https://p5js.org/)'s
 //! [`p5.Vector`](https://p5js.org/reference/#/p5.Vector).
 //!
-//! The main type, [`Vecc<T>`](crate::vecc::Vecc), is a generic struct implementing
-//! many useful traits and operator overloading. [`Fecc`](crate::fecc::Fecc) is a type alias for
-//! [`Vecc<f64>`](crate::vecc::Vecc). It has an extended API, heavily inspired by [`p5.Vector`](https://p5js.org/reference/#/p5.Vector).
+//! The main type, [`Vecc<T>`](crate::vecc::Vecc), is a generic struct
+//! implementing many useful traits and operator overloading.
+//! [`Fecc`](crate::fecc::Fecc) is a type alias for [`Vecc<f64>`](crate::vecc::Vecc). It has an extended API, heavily inspired by [`p5.Vector`](https://p5js.org/reference/#/p5.Vector).
 //!
 //! # Features
 //!
@@ -48,6 +48,6 @@ pub mod angle;
 pub mod fecc;
 pub mod vecc;
 
-pub use angle::{Angle, Angular, Deg, Rad};
+pub use angle::{Angle, Angular};
 pub use fecc::Fecc;
 pub use vecc::Vecc;

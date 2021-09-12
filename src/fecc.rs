@@ -3,6 +3,7 @@
 
 #[cfg(feature = "random")]
 use rand::{Rng, SeedableRng};
+use std::f64::consts::PI;
 
 use crate::{Angle, Vecc};
 
@@ -63,9 +64,9 @@ impl Fecc {
     /// ```
     pub fn from_angle<A>(angle: A) -> Self
     where
-        A: Angle,
+        A: Into<Angle>,
     {
-        let angle = angle.to_rad();
+        let angle = angle.into();
 
         Self {
             x: angle.cos(),
@@ -254,9 +255,9 @@ impl Fecc {
     /// ```
     pub fn turn<A>(&self, angle: A) -> Self
     where
-        A: Angle,
+        A: Into<Angle>,
     {
-        Self::from_angle(angle.to_rad()) * self.mag()
+        Self::from_angle(angle.into()) * self.mag()
     }
 
     /// Rotates the vector, leaving its magnitude unchanged.
@@ -294,9 +295,9 @@ impl Fecc {
     /// ```
     pub fn rotate<A>(&self, angle: A) -> Self
     where
-        A: Angle,
+        A: Into<Angle>,
     {
-        let angle = angle.to_rad();
+        let angle = angle.into();
 
         Self {
             x: self.x * angle.cos() - self.y * angle.sin(),
@@ -422,7 +423,15 @@ impl Fecc {
     /// assert_approx_eq!(f64, a.angle_to(b), PI / 2.0);
     /// ```
     pub fn angle_to(&self, other: Self) -> f64 {
-        other.angle() - self.angle()
+        let angle = other.angle() - self.angle();
+
+        if angle > PI {
+            angle - 2.0 * PI
+        } else if angle < -PI {
+            angle + 2.0 * PI
+        } else {
+            angle
+        }
     }
 
     /// Returns the angle between the positive X axis and the vector.
