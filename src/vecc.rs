@@ -51,7 +51,7 @@ use std::{cmp::Ord, ops::*};
 ///
 /// assert_approx_eq!(f64, e.mag(), 20.0);
 /// ```
-#[derive(Copy, Clone, Eq, PartialEq, Default, Hash)]
+#[derive(Copy, Clone, Eq, PartialEq, Default, Hash, Debug)]
 pub struct Vecc<T> {
     #[allow(missing_docs)]
     pub x: T,
@@ -548,5 +548,103 @@ where
             x: self.x.div(*rhs),
             y: self.y.div(*rhs),
         }
+    }
+}
+
+// *Assign.
+
+// AddAssign.
+
+// Owned.
+impl<T> AddAssign<Vecc<T>> for Vecc<T>
+where
+    T: AddAssign<T>,
+{
+    fn add_assign(&mut self, other: Vecc<T>) {
+        self.x.add_assign(other.x);
+        self.y.add_assign(other.y);
+    }
+}
+
+// Borrowed.
+impl<T> AddAssign<&Vecc<T>> for Vecc<T>
+where
+    T: AddAssign<T> + Copy,
+{
+    fn add_assign(&mut self, other: &Vecc<T>) {
+        self.x.add_assign(other.x);
+        self.y.add_assign(other.y);
+    }
+}
+
+// SubAssign.
+
+// Owned.
+impl<T> SubAssign<Vecc<T>> for Vecc<T>
+where
+    T: SubAssign<T>,
+{
+    fn sub_assign(&mut self, rhs: Vecc<T>) {
+        self.x.sub_assign(rhs.x);
+        self.y.sub_assign(rhs.y);
+    }
+}
+
+// Borrowed.
+impl<T> SubAssign<&Vecc<T>> for Vecc<T>
+where
+    T: SubAssign<T> + Copy,
+{
+    fn sub_assign(&mut self, rhs: &Vecc<T>) {
+        self.x.sub_assign(rhs.x);
+        self.y.sub_assign(rhs.y);
+    }
+}
+
+// MulAssign with T.
+
+// Owned.
+impl<T> MulAssign<T> for Vecc<T>
+where
+    T: MulAssign<T> + Copy,
+{
+    fn mul_assign(&mut self, rhs: T) {
+        self.x.mul_assign(rhs);
+        self.y.mul_assign(rhs);
+    }
+}
+
+// Borrowed.
+impl<T> MulAssign<&T> for Vecc<T>
+where
+    T: MulAssign<T> + Copy,
+{
+    fn mul_assign(&mut self, rhs: &T) {
+        self.x.mul_assign(*rhs);
+        self.y.mul_assign(*rhs);
+    }
+}
+
+// DivAssign with T.
+
+// Owned.
+impl<T> DivAssign<T> for Vecc<T>
+where
+    T: DivAssign<T> + Copy,
+{
+    fn div_assign(&mut self, rhs: T) {
+        self.x.div_assign(rhs);
+        self.y.div_assign(rhs);
+    }
+}
+
+// Borrowed.
+impl<T> DivAssign<&T> for Vecc<T>
+where
+    T: DivAssign<T> + Copy,
+{
+    fn div_assign(&mut self, rhs: &T) {
+        self.x.div_assign(*rhs);
+        self.y.div_assign(*rhs);
     }
 }
