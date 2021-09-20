@@ -2,14 +2,8 @@
 
 [![docs.rs](https://docs.rs/veccentric/badge.svg)](https://docs.rs/veccentric) [![crates.io](https://img.shields.io/badge/crates.io-veccentric-green.svg)](https://crates.io/crates/veccentric)
 
-[![demo](/assets/heccentric.gif)](/examples/heccentric.rs)
-
 Tiny 2D vector library. Inspired by [p5.js](https://p5js.org/)'s
 [`p5.Vector`](https://p5js.org/reference/#/p5.Vector).
-
-The main type, `Vecc<T>`, is a generic struct implementing
-many useful traits and operator overloading. `Fecc` is a type alias for
-`Vecc<f64>`. It has an extended API, heavily inspired by [`p5.Vector`](https://p5js.org/reference/#/p5.Vector).
 
 
 # Usage
