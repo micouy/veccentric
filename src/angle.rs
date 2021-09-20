@@ -249,7 +249,9 @@ where
 /// let b = a.rotate(half_pi_f64);
 /// ```
 ///
-/// The API prevents calling [`deg()`](Angular::deg) or [`rad()`](Angular::rad)  twice.
+/// The API prevents calling [`deg()`](Angular::deg) or [`rad()`](Angular::rad)
+/// twice.
+///
 /// ```compile_fail
 /// let pi = 180.0_f32.deg();
 ///
@@ -266,7 +268,8 @@ pub trait Angular {
 
 impl<T> Angular for T
 where
-    T: Into<f64> {
+    T: Into<f64>,
+{
     fn rad(self) -> Angle {
         Angle(self.into())
     }
