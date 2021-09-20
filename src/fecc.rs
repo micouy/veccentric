@@ -551,4 +551,71 @@ impl Fecc {
             y: self.y.ceil() as i64,
         }
     }
+
+    /// Performs element-wise [`min`](f64::min).
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use float_cmp::assert_approx_eq;
+    /// use veccentric::Fecc;
+    ///
+    /// let a = Fecc::new(-100.0, 100.0);
+    /// let b = Fecc::new(0.0, 0.0);
+    /// let min = a.min(b);
+    ///
+    /// assert_approx_eq!(f64, min.x, -100.0);
+    /// assert_approx_eq!(f64, min.y, 0.0);
+    /// ```
+    pub fn min(&self, other: Self) -> Self {
+        Self {
+            x: self.x.min(other.x),
+            y: self.y.min(other.y),
+        }
+    }
+
+    /// Performs element-wise [`max`](f64::max).
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use float_cmp::assert_approx_eq;
+    /// use veccentric::Fecc;
+    ///
+    /// let a = Fecc::new(-100.0, 100.0);
+    /// let b = Fecc::new(0.0, 0.0);
+    /// let max = a.max(b);
+    ///
+    /// assert_approx_eq!(f64, max.x, 0.0);
+    /// assert_approx_eq!(f64, max.y, 100.0);
+    /// ```
+    pub fn max(&self, other: Self) -> Self {
+        Self {
+            x: self.x.max(other.x),
+            y: self.y.max(other.y),
+        }
+    }
+
+    /// Performs element-wise [`clamp`](f64::clamp).
+    ///
+    /// # Examples
+    ///
+    /// ```
+    /// # use float_cmp::assert_approx_eq;
+    /// use veccentric::Fecc;
+    ///
+    /// let a = Fecc::new(-100.0, 100.0);
+    /// let min = Fecc::new(0.0, 10.0);
+    /// let max = Fecc::new(0.0, 10.0);
+    /// let clamped = a.clamp(min, max);
+    ///
+    /// assert_approx_eq!(f64, clamped.x, 0.0);
+    /// assert_approx_eq!(f64, clamped.y, 10.0);
+    /// ```
+    pub fn clamp(&self, min: Self, max: Self) -> Self {
+        Self {
+            x: self.x.clamp(min.x, max.x),
+            y: self.y.clamp(min.y, max.y),
+        }
+    }
 }

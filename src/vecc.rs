@@ -119,7 +119,17 @@ impl<T> Vecc<T> {
     {
         self.x * rhs.y - self.y * rhs.x
     }
+}
 
+/// Advanced Rust-magic. This trait is needed to implement `min` and `max` for
+/// `Fecc`, otherwise it conflicts with `Vecc<T>`'s implementation. Big thanks to [u/fisgoda](https://www.reddit.com/user/figsoda/) ([link to Reddit post](https://www.reddit.com/r/rust/comments/paw1lm/implementation_of_from_for_generic_struct/)).
+pub auto trait Notf64 {}
+impl !Notf64 for f64 {}
+
+impl<T> Vecc<T>
+where
+    T: Ord + Notf64,
+{
     /// Performs element-wise [`min`](std::cmp::Ord::min).
     ///
     /// # Examples
@@ -134,10 +144,7 @@ impl<T> Vecc<T> {
     /// assert_eq!(min.x, -100);
     /// assert_eq!(min.y, 0);
     /// ```
-    pub fn min(self, rhs: Vecc<T>) -> Vecc<T>
-    where
-        T: Ord,
-    {
+    pub fn min(self, rhs: Vecc<T>) -> Vecc<T> {
         Self {
             x: self.x.min(rhs.x),
             y: self.y.min(rhs.y),
@@ -158,10 +165,7 @@ impl<T> Vecc<T> {
     /// assert_eq!(max.x, 0);
     /// assert_eq!(max.y, 100);
     /// ```
-    pub fn max(self, rhs: Vecc<T>) -> Vecc<T>
-    where
-        T: Ord,
-    {
+    pub fn max(self, rhs: Vecc<T>) -> Vecc<T> {
         Self {
             x: self.x.max(rhs.x),
             y: self.y.max(rhs.y),
@@ -183,10 +187,7 @@ impl<T> Vecc<T> {
     /// assert_eq!(clamped.x, 0);
     /// assert_eq!(clamped.y, 10);
     /// ```
-    pub fn clamp(self, min: Vecc<T>, max: Vecc<T>) -> Vecc<T>
-    where
-        T: Ord,
-    {
+    pub fn clamp(self, min: Vecc<T>, max: Vecc<T>) -> Vecc<T> {
         Self {
             x: self.x.clamp(min.x, max.x),
             y: self.y.clamp(min.y, max.y),
@@ -217,7 +218,7 @@ impl<T> Into<(T, T)> for Vecc<T> {
 }
 
 /// Advanced Rust-magic. This trait is needed to implement `From<Vecc<U>> for
-/// Vecc<T>`, otherwise it conflicts with core's implementation of `From<T> for T` (when `U == T`). Big thanks to [u/fisgoda](https://www.reddit.com/user/figsoda/) ([link to Reddit post](https://www.reddit.com/r/rust/comments/paw1lm/implementation_of_from_for_generic_struct/)).
+/// `Vecc<T>`, otherwise it conflicts with core's implementation of `From<T> for T` (when `U == T`). Big thanks to [u/fisgoda](https://www.reddit.com/user/figsoda/) ([link to Reddit post](https://www.reddit.com/r/rust/comments/paw1lm/implementation_of_from_for_generic_struct/)).
 pub auto trait Different {}
 
 impl<T> !Different for (T, T) {}
