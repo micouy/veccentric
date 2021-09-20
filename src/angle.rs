@@ -1,9 +1,4 @@
-//! Angles and convertion between units.
-//!
-//! Using [`Rad`](crate::angle::Rad) and [`Deg`](crate::angle::Deg) prevents the
-//! user from accidentally calling [`.deg()`](crate::angle::Angular::deg)
-//! twice on an angle. [`f64`](f64) may still be used as angle measured in
-//! radians.
+//! Angles.
 
 use std::{f64::consts::PI, ops::*};
 
@@ -15,32 +10,7 @@ use std::{f64::consts::PI, ops::*};
 /// let half_pi: Angle = (3.14_f32 / 2.0).rad();
 /// ```
 #[derive(Copy, Clone, PartialEq, Default, Debug)]
-pub struct Angle(pub f64);
-
-/// A trait exposing a convenient API to work with angles. It is implemented for
-/// every type `T` such that `T: Into<f64>` (i.e. [`i32`](i32), [`u32`](u32),
-/// [`f64`](f64), [`f32`](f32)).
-///
-/// ```
-/// use veccentric::{Angular, Fecc};
-///
-/// let half_pi_rad: Angle = (3.14_f32 / 2.0).rad();
-/// let half_pi_deg: Angle = 90_i32.deg();
-/// let half_pi_f64: f64 = 3.14 / 2.0;
-///
-/// let a = Fecc::new(1.0, 0.0);
-/// let b = a.rotate(half_pi_rad);
-/// let b = a.rotate(half_pi_deg);
-/// let b = a.rotate(half_pi_f64);
-/// ```
-///
-/// The API prevents calling [`deg()`](crate::Angular::deg) twice.
-/// ```compile_fail
-/// let pi = 180.0_f32.deg();
-///
-/// // Doesn't work! The first `pi` is of type `Angle` which has no such method.
-/// let pi = pi.deg();
-/// ```
+pub struct Angle(f64);
 
 impl Deref for Angle {
     type Target = f64;
@@ -263,21 +233,45 @@ where
     }
 }
 
+/// A trait exposing a convenient API to work with angles. It is implemented for
+/// every type implementing `Into<f64>`.
+///
+/// ```
+/// use veccentric::{Angular, Angle, Fecc};
+///
+/// let half_pi_rad: Angle = (3.14_f32 / 2.0).rad();
+/// let half_pi_deg: Angle = 90_i32.deg();
+/// let half_pi_f64: f64 = 3.14 / 2.0;
+///
+/// let a = Fecc::new(1.0, 0.0);
+/// let b = a.rotate(half_pi_rad);
+/// let b = a.rotate(half_pi_deg);
+/// let b = a.rotate(half_pi_f64);
+/// ```
+///
+/// The API prevents calling [`deg()`](Angular::deg) or [`rad()`](Angular::rad)  twice.
+/// ```compile_fail
+/// let pi = 180.0_f32.deg();
+///
+/// // Doesn't work! `pi` is of type `Angle` which has no such method.
+/// let not_pi = pi.deg();
+/// ```
 pub trait Angular {
-    fn rad(&self) -> Angle;
-    fn deg(&self) -> Angle;
+    /// Interpret the value as radians.
+    fn rad(self) -> Angle;
+
+    /// Interpret the value as degrees.
+    fn deg(self) -> Angle;
 }
 
 impl<T> Angular for T
 where
-    f64: From<T>,
-    T: Copy,
-{
-    fn rad(&self) -> Angle {
-        Angle(f64::from(*self))
+    T: Into<f64> {
+    fn rad(self) -> Angle {
+        Angle(self.into())
     }
 
-    fn deg(&self) -> Angle {
-        Angle(f64::from(*self) * PI / 180.0)
+    fn deg(self) -> Angle {
+        Angle(self.into() * PI / 180.0)
     }
 }
