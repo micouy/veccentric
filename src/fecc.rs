@@ -19,10 +19,11 @@ use crate::{Angle, Vecc};
 ///
 /// Note that [`Fecc`](Fecc)'s implementations of [`Rem`](std::ops::Rem)
 /// and [`RemAssign`](std::ops::RemAssign) use
-/// [`f64::rem_euclid`](f64::rem_euclid), not [`f64::rem`](f64::add).
-/// This kind of modulo operation is expected to be more useful for game
-/// developers since it is used to emulate 'wrapping' of a game object's
-/// position.
+/// [`f64::rem_euclid`](f64::rem_euclid), not [`f64::rem`](Rem::rem).
+/// (TODO: Link `f64::rem` directly after [#74563](https://github.com/rust-lang/rust/issues/74563)
+/// is resolved.) This kind of modulo operation is expected to be more useful
+/// for game developers since it is used to emulate 'wrapping' of a game
+/// object's position.
 ///
 /// # Examples
 ///
@@ -508,7 +509,7 @@ impl Fecc {
     /// assert_eq!(rounded_a.y, 5);
     /// ```
 
-    // TODO: Consider returning `Result` - [https://stackoverflow.com/questions/41138599/rounding-a-f64-to-nearest-i64-in-rust].
+    // TODO: Consider returning `Result` — [https://stackoverflow.com/questions/41138599/rounding-a-f64-to-nearest-i64-in-rust].
     pub fn round(&self) -> Vecc<i64> {
         Vecc {
             x: self.x.round() as i64,
@@ -531,7 +532,7 @@ impl Fecc {
     /// assert_eq!(floored_a.y, 4);
     /// ```
 
-    // TODO: Consider returning `Result` - [https://stackoverflow.com/questions/41138599/rounding-a-f64-to-nearest-i64-in-rust].
+    // TODO: Consider returning `Result` — [https://stackoverflow.com/questions/41138599/rounding-a-f64-to-nearest-i64-in-rust].
     pub fn floor(&self) -> Vecc<i64> {
         Vecc {
             x: self.x.floor() as i64,
@@ -554,7 +555,7 @@ impl Fecc {
     /// assert_eq!(ceiled_a.y, 5);
     /// ```
 
-    // TODO: Consider returning `Result` - [https://stackoverflow.com/questions/41138599/rounding-a-f64-to-nearest-i64-in-rust].
+    // TODO: Consider returning `Result` — [https://stackoverflow.com/questions/41138599/rounding-a-f64-to-nearest-i64-in-rust].
     pub fn ceil(&self) -> Vecc<i64> {
         Vecc {
             x: self.x.ceil() as i64,
