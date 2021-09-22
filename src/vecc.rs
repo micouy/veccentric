@@ -552,6 +552,130 @@ where
     }
 }
 
+// Rem.
+
+// Owned & owned.
+impl<T> Rem<Vecc<T>> for Vecc<T>
+where
+    T: Rem<Output = T> + Notf64,
+{
+    type Output = Vecc<T>;
+
+    fn rem(self, rhs: Vecc<T>) -> Self::Output {
+        Vecc {
+            x: self.x.rem(rhs.x),
+            y: self.y.rem(rhs.y),
+        }
+    }
+}
+
+// Owned & borrowed.
+impl<T> Rem<&Vecc<T>> for Vecc<T>
+where
+    T: Rem<Output = T> + Copy + Notf64,
+{
+    type Output = Vecc<T>;
+
+    fn rem(self, rhs: &Vecc<T>) -> Self::Output {
+        Vecc {
+            x: self.x.rem(rhs.x),
+            y: self.y.rem(rhs.y),
+        }
+    }
+}
+
+// Borrowed & owned.
+impl<T> Rem<Vecc<T>> for &Vecc<T>
+where
+    T: Rem<Output = T> + Copy + Notf64,
+{
+    type Output = Vecc<T>;
+
+    fn rem(self, rhs: Vecc<T>) -> Self::Output {
+        Vecc {
+            x: self.x.rem(rhs.x),
+            y: self.y.rem(rhs.y),
+        }
+    }
+}
+
+// Borrowed & borrowed.
+impl<T> Rem<&Vecc<T>> for &Vecc<T>
+where
+    T: Rem<Output = T> + Copy + Notf64,
+{
+    type Output = Vecc<T>;
+
+    fn rem(self, rhs: &Vecc<T>) -> Self::Output {
+        Vecc {
+            x: self.x.rem(rhs.x),
+            y: self.y.rem(rhs.y),
+        }
+    }
+}
+
+// Rem with T.
+
+// Owned & owned.
+impl<T> Rem<T> for Vecc<T>
+where
+    T: Rem<Output = T> + Copy + Notf64,
+{
+    type Output = Vecc<T>;
+
+    fn rem(self, rhs: T) -> Self::Output {
+        Vecc {
+            x: self.x.rem(rhs),
+            y: self.y.rem(rhs),
+        }
+    }
+}
+
+// Owned & borrowed.
+impl<T> Rem<&T> for Vecc<T>
+where
+    T: Rem<Output = T> + Copy + Notf64,
+{
+    type Output = Vecc<T>;
+
+    fn rem(self, rhs: &T) -> Self::Output {
+        Vecc {
+            x: self.x.rem(*rhs),
+            y: self.y.rem(*rhs),
+        }
+    }
+}
+
+// Borrowed & owned.
+impl<T> Rem<T> for &Vecc<T>
+where
+    T: Rem<Output = T> + Copy + Notf64,
+{
+    type Output = Vecc<T>;
+
+    fn rem(self, rhs: T) -> Self::Output {
+        Vecc {
+            x: self.x.rem(rhs),
+            y: self.y.rem(rhs),
+        }
+    }
+}
+
+// Borrowed & borrowed.
+impl<T> Rem<&T> for &Vecc<T>
+where
+    T: Rem<Output = T> + Copy + Notf64,
+{
+    type Output = Vecc<T>;
+
+    fn rem(self, rhs: &T) -> Self::Output {
+        Vecc {
+            x: self.x.rem(*rhs),
+            y: self.y.rem(*rhs),
+        }
+    }
+}
+
 // *Assign.
 
 // AddAssign.
@@ -647,5 +771,53 @@ where
     fn div_assign(&mut self, rhs: &T) {
         self.x.div_assign(*rhs);
         self.y.div_assign(*rhs);
+    }
+}
+
+// RemAssign.
+
+// Owned.
+impl<T> RemAssign<Vecc<T>> for Vecc<T>
+where
+    T: RemAssign<T> + Notf64,
+{
+    fn rem_assign(&mut self, rhs: Vecc<T>) {
+        self.x.rem_assign(rhs.x);
+        self.y.rem_assign(rhs.y);
+    }
+}
+
+// Borrowed.
+impl<T> RemAssign<&Vecc<T>> for Vecc<T>
+where
+    T: RemAssign<T> + Copy + Notf64,
+{
+    fn rem_assign(&mut self, rhs: &Vecc<T>) {
+        self.x.rem_assign(rhs.x);
+        self.y.rem_assign(rhs.y);
+    }
+}
+
+// RemAssign with T.
+
+// Owned.
+impl<T> RemAssign<T> for Vecc<T>
+where
+    T: RemAssign<T> + Copy + Notf64,
+{
+    fn rem_assign(&mut self, rhs: T) {
+        self.x.rem_assign(rhs);
+        self.y.rem_assign(rhs);
+    }
+}
+
+// Borrowed.
+impl<T> RemAssign<&T> for Vecc<T>
+where
+    T: RemAssign<T> + Copy + Notf64,
+{
+    fn rem_assign(&mut self, rhs: &T) {
+        self.x.rem_assign(*rhs);
+        self.y.rem_assign(*rhs);
     }
 }

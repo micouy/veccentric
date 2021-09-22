@@ -3,7 +3,10 @@
 
 #[cfg(feature = "random")]
 use rand::{Rng, SeedableRng};
-use std::f64::consts::PI;
+use std::{
+    f64::consts::PI,
+    ops::{Rem, RemAssign},
+};
 
 use crate::{Angle, Vecc};
 
@@ -11,8 +14,15 @@ use crate::{Angle, Vecc};
 ///
 /// It implements the same methods as [`p5.Vector`](https://p5js.org/reference/#/p5.Vector)
 /// (although some of them are named differently). Since
-/// [`Fecc`](crate::fecc::Fecc) is [`Copy`](std::marker::Copy) none of the
+/// [`Fecc`](Fecc) is [`Copy`](std::marker::Copy) none of the
 /// methods mutates the vector, they may only return a new one.
+///
+/// Note that [`Fecc`](Fecc)'s implementations of [`Rem`](std::ops::Rem)
+/// and [`RemAssign`](std::ops::RemAssign) use
+/// [`f64::rem_euclid`](f64::rem_euclid), not [`f64::rem`](f64::add).
+/// This kind of modulo operation is expected to be more useful for game
+/// developers since it is used to emulate 'wrapping' of a game object's
+/// position.
 ///
 /// # Examples
 ///
@@ -617,5 +627,141 @@ impl Fecc {
             x: self.x.clamp(min.x, max.x),
             y: self.y.clamp(min.y, max.y),
         }
+    }
+}
+
+// Euclidean modulo.
+
+// Owned & owned.
+impl Rem<Fecc> for Fecc {
+    type Output = Fecc;
+
+    fn rem(self, rhs: Fecc) -> Self::Output {
+        Vecc {
+            x: self.x.rem_euclid(rhs.x),
+            y: self.y.rem_euclid(rhs.y),
+        }
+    }
+}
+
+// Owned & borrowed.
+impl Rem<&Fecc> for Fecc {
+    type Output = Fecc;
+
+    fn rem(self, rhs: &Fecc) -> Self::Output {
+        Vecc {
+            x: self.x.rem_euclid(rhs.x),
+            y: self.y.rem_euclid(rhs.y),
+        }
+    }
+}
+
+// Borrowed & owned.
+impl Rem<Fecc> for &Fecc {
+    type Output = Fecc;
+
+    fn rem(self, rhs: Fecc) -> Self::Output {
+        Vecc {
+            x: self.x.rem_euclid(rhs.x),
+            y: self.y.rem_euclid(rhs.y),
+        }
+    }
+}
+
+// Borrowed & borrowed.
+impl Rem<&Fecc> for &Fecc {
+    type Output = Fecc;
+
+    fn rem(self, rhs: &Fecc) -> Self::Output {
+        Vecc {
+            x: self.x.rem_euclid(rhs.x),
+            y: self.y.rem_euclid(rhs.y),
+        }
+    }
+}
+
+// Euclidean modulo with f64.
+
+// Owned & owned.
+impl Rem<f64> for Fecc {
+    type Output = Fecc;
+
+    fn rem(self, rhs: f64) -> Self::Output {
+        Vecc {
+            x: self.x.rem_euclid(rhs),
+            y: self.y.rem_euclid(rhs),
+        }
+    }
+}
+
+// Owned & borrowed.
+impl Rem<&f64> for Fecc {
+    type Output = Fecc;
+
+    fn rem(self, rhs: &f64) -> Self::Output {
+        Vecc {
+            x: self.x.rem_euclid(*rhs),
+            y: self.y.rem_euclid(*rhs),
+        }
+    }
+}
+
+// Borrowed & owned.
+impl Rem<f64> for &Fecc {
+    type Output = Fecc;
+
+    fn rem(self, rhs: f64) -> Self::Output {
+        Vecc {
+            x: self.x.rem_euclid(rhs),
+            y: self.y.rem_euclid(rhs),
+        }
+    }
+}
+
+// Borrowed & borrowed.
+impl Rem<&f64> for &Fecc {
+    type Output = Fecc;
+
+    fn rem(self, rhs: &f64) -> Self::Output {
+        Vecc {
+            x: self.x.rem_euclid(*rhs),
+            y: self.y.rem_euclid(*rhs),
+        }
+    }
+}
+
+// (Euclidean modulo)Assign.
+
+// Owned.
+impl RemAssign<Fecc> for Fecc {
+    fn rem_assign(&mut self, rhs: Fecc) {
+        self.x = self.x.rem_euclid(rhs.x);
+        self.y = self.y.rem_euclid(rhs.y);
+    }
+}
+
+// Borrowed.
+impl RemAssign<&Fecc> for Fecc {
+    fn rem_assign(&mut self, rhs: &Fecc) {
+        self.x = self.x.rem_euclid(rhs.x);
+        self.y = self.y.rem_euclid(rhs.y);
+    }
+}
+
+// (Euclidean modulo)Assign with f64.
+
+// Owned.
+impl RemAssign<f64> for Fecc {
+    fn rem_assign(&mut self, rhs: f64) {
+        self.x = self.x.rem_euclid(rhs);
+        self.y = self.y.rem_euclid(rhs);
+    }
+}
+
+// Borrowed.
+impl RemAssign<&f64> for Fecc {
+    fn rem_assign(&mut self, rhs: &f64) {
+        self.x = self.x.rem_euclid(*rhs);
+        self.y = self.y.rem_euclid(*rhs);
     }
 }
