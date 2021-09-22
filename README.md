@@ -12,7 +12,7 @@ Add `veccentric` to your `Cargo.toml`.
 
 ```toml
 [dependencies]
-veccentric = "0.2"
+veccentric = "0.3"
 ```
 
 Basic arithmetic on `Vecc<T>`.
@@ -39,4 +39,4 @@ let d = c.rotate(PI);
 let e = d.turn(0.0);
 ```
 
-[See more examples.](examples/)
+[See more examples.](https://github.com/micouy/veccentric/tree/master/examples)
